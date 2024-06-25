@@ -5,9 +5,12 @@ library(ggplot2)
 library(scCustomize)
 
 
-merged.srt <- readRDS("/Users/emilyfitzmeyer/Desktop/scRNAseq/rds_files/merged_rds/12dpi_res1.1.rds")
-EE.srt <- subset(merged.srt, idents = 13)
+merged.srt <- readRDS("/Users/emilyfitzmeyer/Desktop/scRNAseq_pub/mergeDPI_oldNorm/alldpi_oldNorm_nmn_res0.6.rds")
+split.srt <- SplitObject(merged.srt, split.by = "dpi")
+dpi.srt <- split.srt$"12dpi"
+EE.srt <- subset(dpi.srt, idents = 12)
 
+DimPlot(EE.srt, reduction = 'umap')
 #EE_plot_breaks <- c( "Tachykinin", "IA2", "SCG5 (7B2 precursor)", "Syt1", "Syt4", "Syt6", "nSyb", "Syx1A" )
 #EE_plot_features <- c("gene13952", "gene8024", "gene13213", "gene2866",  "gene3638", "gene8406", "gene7584", "gene5192")
 
@@ -22,7 +25,7 @@ gene13952 <- FeaturePlot(EE.srt, features = "gene13952", pt.size = 0.5) &
   theme(axis.text.x = element_text(size = 15)) &
   theme(axis.text.y = element_text(size = 15)) &
   theme(legend.position = 'none') &
-  ggtitle("Tachykinin") &
+  ggtitle("Tk (receptor)") &
   scale_x_discrete(labels = 'none') &
   labs(x = NULL, y = NULL)
 
@@ -95,30 +98,30 @@ gene7998 <- FeaturePlot(EE.srt, features = "gene7998", pt.size = 0.5) &
   scale_y_discrete(labels = 'none') &
   labs(x = NULL, y = NULL)
 
-#TEST
-gene1511 <- FeaturePlot(EE.srt, features = "gene1511", pt.size = 0.5) &
-  theme(axis.text.x = element_text(size = 15)) &
-  theme(axis.text.y = element_text(size = 15)) &
-  theme(legend.position = 'none') &
-  ggtitle("Burs") &
-  scale_y_discrete(labels = 'none') &
-  labs(x = NULL, y = NULL)
-
-gene12241 <- FeaturePlot(EE.srt, features = "gene12241", pt.size = 0.5) &
-  theme(axis.text.x = element_text(size = 15)) &
-  theme(axis.text.y = element_text(size = 15)) &
-  theme(legend.position = 'none') &
-  ggtitle("ITP") &
-  scale_y_discrete(labels = 'none') &
-  labs(x = NULL, y = NULL)
-
-gene2206 <- FeaturePlot(EE.srt, features = "gene2206", pt.size = 0.5) &
-  theme(axis.text.x = element_text(size = 15)) &
-  theme(axis.text.y = element_text(size = 15)) &
-  theme(legend.position = 'none') &
-  ggtitle("sNPF") &
-  scale_y_discrete(labels = 'none') &
-  labs(x = NULL, y = NULL)
+# #TEST
+# gene1511 <- FeaturePlot(EE.srt, features = "gene1511", pt.size = 0.5) &
+#   theme(axis.text.x = element_text(size = 15)) &
+#   theme(axis.text.y = element_text(size = 15)) &
+#   theme(legend.position = 'none') &
+#   ggtitle("Burs") &
+#   scale_y_discrete(labels = 'none') &
+#   labs(x = NULL, y = NULL)
+# 
+# gene12241 <- FeaturePlot(EE.srt, features = "gene12241", pt.size = 0.5) &
+#   theme(axis.text.x = element_text(size = 15)) &
+#   theme(axis.text.y = element_text(size = 15)) &
+#   theme(legend.position = 'none') &
+#   ggtitle("ITP") &
+#   scale_y_discrete(labels = 'none') &
+#   labs(x = NULL, y = NULL)
+# 
+# gene2206 <- FeaturePlot(EE.srt, features = "gene2206", pt.size = 0.5) &
+#   theme(axis.text.x = element_text(size = 15)) &
+#   theme(axis.text.y = element_text(size = 15)) &
+#   theme(legend.position = 'none') &
+#   ggtitle("sNPF") &
+#   scale_y_discrete(labels = 'none') &
+#   labs(x = NULL, y = NULL)
 
 plot <- gene13952 + gene8024 + gene13213 + gene2866 + gene3638 + gene8406 + gene7584 + gene5192 + gene7998 + patchwork::plot_layout(ncol = 3)
 
